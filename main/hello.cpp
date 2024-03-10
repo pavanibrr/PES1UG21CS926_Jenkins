@@ -1,30 +1,30 @@
-pipeline {
+pipeline { // The top-level 'pipeline' block is essential
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build') { 
             steps {
-                script {
-                    // Compile .cpp file using a shell script
-                    sh 'g++ -o myExecutable main/hello.cpp'
+                script { 
+                    // Compile .cpp file
+                    sh 'g++ -o myExecutable main/hello.cpp' 
                 }
             }
         }
 
-        stage('Test') {
+        stage('Test') { 
             steps {
-                script {
-                    // Print output of .cpp file using a shell script
-                    sh './myExecutable'
+                script { 
+                    // Run the executable
+                    sh './myExecutable' 
                 }
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy') { 
             steps {
-                script {
-                    // Deployment steps go here (if any)
-                    echo 'Deployment completed successfully'
+                script { 
+                    // Deployment steps 
+                    echo "Deployment completed successfully" 
                 }
             }
         }
@@ -32,13 +32,13 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline succeeded'
-            // Additional actions or notifications for success can be added here
+            echo "Pipeline succeeded" 
+            // Additional success actions
         }
 
         failure {
-            echo 'Pipeline failed'
-            // Additional actions or notifications can be added here
+            echo "Pipeline failed"
+            // Additional failure actions
         }
     }
 }
