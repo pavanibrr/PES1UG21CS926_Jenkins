@@ -1,11 +1,44 @@
-//File: hello.cpp
-#include <iostream>
-using namespace std;
+pipeline {
+    agent any
 
-int main(void) {
-  cout << "Hello, World\n";
-  cout << "Hello, Jenkins\n";
-  cout << "I have successfully built and run\n";
-  cout << "webhook successfully enabled\n";
-  return 0;
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Compile .cpp file using a shell script
+                    sh 'g++ -o myExecutable main/hello.cpp'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Print output of .cpp file using a shell script
+                    sh './myExecutable'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Deployment steps go here (if any)
+                    echo 'Deployment completed successfully'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded'
+            // Additional actions or notifications for success can be added here
+        }
+
+        failure {
+            echo 'Pipeline failed'
+            // Additional actions or notifications can be added here
+        }
+    }
 }
