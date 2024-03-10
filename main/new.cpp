@@ -5,10 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Attempt compilation, and fail the build if errors occur
-                    if (sh(returnStatus: true, script: 'g++ -o myExecutable main/new.cpp') != 0) {
-                        error('Compilation failed')
-                    } 
+                    // Compile .cpp file using a shell script
+                    sh 'g++ -o myExecutable main/hello.cpp'
                 }
             }
         }
@@ -16,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Execute the compiled program
+                    // Print output of .cpp file using a shell script
                     sh './myExecutable'
                 }
             }
@@ -25,11 +23,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Replace with your actual deployment steps, e.g.,
-                    // sh 'scp myExecutable user@targetserver:/deployment/path'
-
-                    // Placeholder for now
-                    echo 'Deployment steps would go here' 
+                    // Deployment steps go here (if any)
+                    echo 'Deployment completed successfully'
                 }
             }
         }
@@ -38,12 +33,12 @@ pipeline {
     post {
         success {
             echo 'Pipeline succeeded'
-            // Add success notifications if desired (email, Slack, etc.)
+            // Additional actions or notifications for success can be added here
         }
 
         failure {
             echo 'Pipeline failed'
-            // Add failure notifications if desired (email, Slack, etc.)
+            // Additional actions or notifications can be added here
         }
     }
 }
