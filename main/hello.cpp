@@ -1,44 +1,10 @@
-pipeline { // The top-level 'pipeline' block is essential
-    agent any
+//File: hello.cpp
+#include <iostream>
+using namespace std;
 
-    stages {
-        stage('Build') { 
-            steps {
-                script { 
-                    // Compile .cpp file
-                    sh 'g++ -o myExecutable main/hello.cpp' 
-                }
-            }
-        }
-
-        stage('Test') { 
-            steps {
-                script { 
-                    // Run the executable
-                    sh './myExecutable' 
-                }
-            }
-        }
-
-        stage('Deploy') { 
-            steps {
-                script { 
-                    // Deployment steps 
-                    echo "Deployment completed successfully" 
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo "Pipeline succeeded" 
-            // Additional success actions
-        }
-
-        failure {
-            echo "Pipeline failed"
-            // Additional failure actions
-        }
-    }
+int main(void) {
+  cout << "Hello, World changed\n";
+  cout << "Hello, Jenkins changed\n";
+  cout << "I have successfully built and run\n";
+  return 0;
 }
